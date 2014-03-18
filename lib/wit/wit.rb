@@ -12,10 +12,10 @@ module Wit
     end
   end
 
-  def self.message(message = '')
+  def self.message(message = '', context={})
     response = connection.get do |req|
       req.headers['Authorization'] = "Bearer #{token}"
-      req.url '/message', q: message
+      req.url '/message', q: message, context: JSON.encode(context)
     end
 
     case response.status
